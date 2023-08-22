@@ -21,5 +21,6 @@ integration_tests:
   script:
     - java -jar target/battle-royal-back-1.0-SNAPSHOT-jar-with-dependencies.jar &
     - cd integration_test
-    - sudo apt-get install python3-pytest -y
+    - apt-get update
+    - apt-get install python3-pytest -y
     - pytest
