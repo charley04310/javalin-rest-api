@@ -25,8 +25,6 @@ Par ailleurs 5 points seront réservés à la qualité du code implémenté selo
 
 Le boiler plate associé à ce README vous est fourni comme point de départ avec un endpoint `/api/status` qui ne doit pas être modifié.
 
-Les modèles ont été pré-implémentés pour vous faire gagner du temps, votre rôle sera d'implémenter les endpoints REST pour répondre aux fonctionnalitées décrites dans les US ci-dessous.
-
 
 # Description de l'application
 
