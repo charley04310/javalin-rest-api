@@ -18,9 +18,8 @@ build:
 
 integration_tests:
   stage: test
+  image: databricksdocs/pytest:latest
   script:
     - java -jar target/pokedex-back-1.0-SNAPSHOT-jar-with-dependencies.jar &
     - cd integration_test
-    - apt-get update
-    - apt-get install python3-pytest -y
-    - pytest-3
+    - pytest
