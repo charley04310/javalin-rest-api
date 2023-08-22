@@ -1,0 +1,19 @@
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - mvn clean compile assembly:single
+    - mvn package
+  artifacts:
+    paths:
+    - target/battle-royal-back-1.0-SNAPSHOT-jar-with-dependencies.jar
+    when: on_success
+    expire_in: "30 days"
+
+US1_test:
+  stage: test
+  script:
+    - echo "If the files are built successfully, test some files with one command:"
