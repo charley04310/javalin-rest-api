@@ -12,14 +12,14 @@ build:
     - mvn package
   artifacts:
     paths:
-    - target/battle-royal-back-1.0-SNAPSHOT-jar-with-dependencies.jar
+    - target/pokedex-back-1.0-SNAPSHOT-jar-with-dependencies.jar
     when: on_success
     expire_in: "30 days"
 
 integration_tests:
   stage: test
   script:
-    - java -jar target/battle-royal-back-1.0-SNAPSHOT-jar-with-dependencies.jar &
+    - java -jar target/pokedex-back-1.0-SNAPSHOT-jar-with-dependencies.jar &
     - cd integration_test
     - apt-get update
     - apt-get install python3-pytest -y

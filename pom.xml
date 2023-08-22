@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.nmeo</groupId>
-  <artifactId>battle-royal-back</artifactId>
+  <artifactId>pokedex-back</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>battle-royal-back</name>
+  <name>pokedex-back</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
