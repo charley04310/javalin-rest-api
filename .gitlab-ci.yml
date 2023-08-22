@@ -23,4 +23,4 @@ integration_tests:
     - cd integration_test
     - apt-get update
     - apt-get install python3-pytest -y
-    - pytest
+    - pytest-3
