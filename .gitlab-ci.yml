@@ -16,7 +16,7 @@ build:
     when: on_success
     expire_in: "30 days"
 
-US1_test:
+integration_tests:
   stage: test
   script:
     - java -jar target/battle-royal-back-1.0-SNAPSHOT-jar-with-dependencies.jar &
