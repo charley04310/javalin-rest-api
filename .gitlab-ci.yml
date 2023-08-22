@@ -19,6 +19,6 @@ build:
 US1_test:
   stage: test
   script:
-    - java -jar target/battle-royal-back-1.0-SNAPSHOT-jar-with-dependencies.jar
+    - java -jar target/battle-royal-back-1.0-SNAPSHOT-jar-with-dependencies.jar &
     - cd integration_test
     - pytest
