@@ -19,4 +19,6 @@ build:
 US1_test:
   stage: test
   script:
-    - echo "If the files are built successfully, test some files with one command:"
+    - java -jar target/battle-royal-back-1.0-SNAPSHOT-jar-with-dependencies.jar
+    - cd integration_test
+    - pytest
