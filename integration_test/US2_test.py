@@ -40,7 +40,7 @@ def test_search_bizarre(url):
         assert body['result'][0] == pokemon_herbizarre or body['result'][1] == pokemon_herbizarre
 
 @pytest.mark.parametrize("url", ["http://localhost:8080/api/searchByName"])
-def test_search_dracaufeu(url):
+def test_search_unexisting(url):
     response = requests.get(url, {"name": "Pancham"})
     assert response.status_code == 200, f"Expected status code 200, but got {response.status_code}"
     body = response.json()
