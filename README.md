@@ -97,12 +97,12 @@ Le serveur doit envoyer la liste des pokémons pour lesquelles la chaine de cara
 
 Si aucun pokémon ne correspond à cette chaine, une liste vide est renvoyée.
 
-Si le paramètre est invalide (par exemple de mauvais type), le serveur envoie une requête vide avec le code d'erreur 400.
+Si le paramètre est invalide (par exemple de mauvais type), le serveur répond avec le code d'erreur 400.
 
 Exemple de requête : `/api/searchByName?name=Pika`
 
 ## Spécifications d'interfaces
-### Réponse avec résultat
+### Réponse
 
 ```json
 {
@@ -128,14 +128,6 @@ Exemple de requête : `/api/searchByName?name=Pika`
 }
 ```
 
-### Réponse sans résultat
-
-```json
-{
-    "result": []
-}
-```
-
 
 # US 3 - Modification d'un pokémon
 
@@ -143,7 +135,9 @@ En tant qu'utilisateur, je souhaite modifier un pokémon dans la base du Pokéde
 
 En ce qui concerne la liste de capacité, si la capacité existe déjà n'est pas modifiée. On ne peut qu'ajouter des nouvelles capacités, pas modifier les existantes.
 
-Si le pokémon n'existe pas une erreur 404 avec un message vide est renvoyée par le serveur.
+Si la modification est effectuée, le serveur répond avec le code 200.
+Si le pokémon n'existe pas, le serveur répond avec le code 404.
+Si le json est invalide, le serveur répond avec le code 400.
 
 Le endpoint à utiliser est `/api/modify`
 
