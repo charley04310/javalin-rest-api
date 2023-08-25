@@ -17,11 +17,10 @@ Par ailleurs 5 points seront réservés à la qualité du code implémenté selo
 
 | User story    | Points |
 | ------------- | ---- |
-| User Story 1 | 4 |
+| User Story 1 | 5 |
 | User Story 2 | 4 |
-| User Story 3 | 3 |
+| User Story 3 | 4 |
 | User Story 4 | 2 |
-| User Story 5 | 2 |
 
 Le boiler plate associé à ce README vous est fourni comme point de départ avec un endpoint `/api/status` qui ne doit pas être modifié.
 
@@ -35,27 +34,27 @@ Les modèles de données utilisés pour cet exercice sont présentés ci-dessous
 
 | Nom de l'attribut | Type |
 | ------------- | ------------ |
-| name | String |
+| pokemonName | String |
 | type | Elements |
 |  lifePoints | int |
 | powers | List\<Power> |
 
 ## Elements
 Les différents éléments sont:
-- neutral
-- fire
-- water
-- grass
-- electric
-- ice
-- fighting
-- poison
-- ground
+- NEUTRAL
+- FIRE
+- WATER
+- GRASS
+- ELECTRIC
+- ICE
+- FIGHTING
+- POISON
+- GROUND
 
 ## Power
 | Nom de l'attribut | Type |
 | ------------- | ------------ |
-| name | String |
+| powerName | String |
 | damageType | Elements |
 | damage | int |
 
@@ -67,10 +66,8 @@ En tant qu'utilisateur, je souhaite ajouter un pokémon dans la base du Pokédex
 - Le nombre de points de vie
 - La liste des capacités
 
-Si le pokémon existe déjà ou que le json est incomplet ou invalide, une erreur est renvoyée par le serveur.
-
-En cas de réussite, une requête vide est envoyée par le serveur avec le code d'erreur 200.
-En cas d'échec, une requête vide est envoyée par le serveur avec le code d'erreur 400.
+Si le pokémon existe déjà ou que le json est incomplet ou invalide, une erreur 400 est renvoyée par le serveur.
+En cas de réussite, le code 200 est envoyé par le serveur.
 
 Le endpoint à utiliser est `/api/create`
 
@@ -79,13 +76,13 @@ Le endpoint à utiliser est `/api/create`
 
 ```json
 {
-    "name": "Pikachu",
-    "type": "Electric",
+    "pokemonName": "Pikachu",
+    "type": "ELECTRIC",
     "lifePoints": 70,
     "powers": [
         {
-            "name": "gnaw",
-            "powerType": "neutral",
+            "powerName": "gnaw",
+            "damageType": "NEUTRAL",
             "damage": 30
         }
     ]
@@ -105,23 +102,24 @@ Si le paramètre est invalide (par exemple de mauvais type), le serveur envoie u
 Exemple de requête : `/api/searchByName?name=Pika`
 
 ## Spécifications d'interfaces
-### Réponse
+### Réponse avec résultat
 
 ```json
 {
-    [
+    "result": [
         {
-            "name": "Pikachu",
+            "pokemonName": "Pikachu",
+            "type": "ELECTRIC",
             "lifePoints": 80,
             "powers": [
                 {
-                    "name": "gnaw",
-                    "powerType": "neutral",
+                    "powerName": "gnaw",
+                    "damageType": "NEUTRAL",
                     "damage": 30
-                }
+                },
                 {
-                    "name": "thunder jolt",
-                    "powerType": "electric",
+                    "powerName": "thunder jolt",
+                    "damageType": "ELECTRIC",
                     "damage": 50
                 }
             ]
@@ -130,12 +128,20 @@ Exemple de requête : `/api/searchByName?name=Pika`
 }
 ```
 
+### Réponse sans résultat
+
+```json
+{
+    "result": []
+}
+```
+
 
 # US 3 - Modification d'un pokémon
 
 En tant qu'utilisateur, je souhaite modifier un pokémon dans la base du Pokédex. J'envoie une requête Json de type `POST` contenant le nom du pokémon et les informations à modifier. Tous les attributs d'un pokémon peuvent être modifiés sauf le nom.
 
-En ce qui concerne la liste de capacité, si la capacité existe déjà elle est modifiée, sinon une nouvelle capacité sera créée.
+En ce qui concerne la liste de capacité, si la capacité existe déjà n'est pas modifiée. On ne peut qu'ajouter des nouvelles capacités, pas modifier les existantes.
 
 Si le pokémon n'existe pas une erreur 404 avec un message vide est renvoyée par le serveur.
 
@@ -146,7 +152,7 @@ Le endpoint à utiliser est `/api/modify`
 
 ```json
 {
-    "name": "Pikachu",
+    "pokemonName": "Pikachu",
     "lifePoints": 80
 }
 ```
@@ -155,11 +161,11 @@ Le endpoint à utiliser est `/api/modify`
 
 ```json
 {
-    "name": "Pikachu",
+    "pokemonName": "Pikachu",
     "powers": [
         {
-            "name": "thunder jolt",
-            "powerType": "electric",
+            "powerName": "thunder jolt",
+            "damageType": "ELECTRIC",
             "damage": 50
         }
     ]
@@ -177,26 +183,26 @@ Si aucun pokémon ne correspond à cette chaine, une liste vide est renvoyée.
 
 Si le type recherché n'ai pas dans la liste de type possible, le serveur renvoie une requête vide avec le code d'erreur 400.
 
-Exemple de requête : `/api/searchByType?type=electric`
+Exemple de requête : `/api/searchByType?type=ELECTRIC`
 
 ## Spécifications d'interfaces
 
 ### Réponse
 ```json
 {
-    [
+    "result": [
         {
             "name": "Pikachu",
             "lifePoints": 80,
             "powers": [
                 {
                     "name": "gnaw",
-                    "powerType": "neutral",
+                    "damageType": "NEUTRAL",
                     "damage": 30
-                }
+                },
                 {
                     "name": "thunder jolt",
-                    "powerType": "electric",
+                    "damageType": "ELECTRIC",
                     "damage": 50
                 }
             ]
@@ -204,12 +210,3 @@ Exemple de requête : `/api/searchByType?type=electric`
     ]
 }
 ```
-
-
-# US 5 - Ajout des évolutions
-
-TODO après un premier test en fonction du timing
-
-Gestion des évolutions de pokémon + recherche de pokémons par arbre d'évolution
-
-
