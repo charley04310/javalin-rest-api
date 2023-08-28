@@ -19,24 +19,25 @@ Par ailleurs 5 points seront réservés à la qualité du code implémenté selo
 | ------------- | ---- |
 | User Story 1 | 5 |
 | User Story 2 | 4 |
-| User Story 3 | 4 |
-| User Story 4 | 2 |
+| User Story 3 | 3 |
+| User Story 4 | 3 |
 
-Le boiler plate associé à ce README vous est fourni comme point de départ avec un endpoint `/api/status` qui ne doit pas être modifié.
-
+Le boiler plate associé à ce README vous est fourni comme point de départ avec un endpoint `/api/status` qui ne doit pas être modifié. Des commentaires vous permettant de vous aider à récupèrer les données reçues avec le framework Javalin ont été placés dans le fichier `App.java`.
 
 # Description de l'application
 
-Un pokédex est une console qui permet de consulter les caractéristiques d'un pokémon. On pourra ainsi ajouter et supprimer des pokémons, puis consulter les caractérisques d'un ou de plusieurs pokémons.
+Un pokédex est une console qui permet de consulter les caractéristiques d'un pokémon. On pourra ainsi ajouter des pokémons et consulter les caractérisques d'un ou de plusieurs pokémons.
 Les modèles de données utilisés pour cet exercice sont présentés ci-dessous.
 
 ## Pokémon
+
+Le nom du pokémon servira d'identifiant unique dans le cadre de cet exercice.
 
 | Nom de l'attribut | Type |
 | ------------- | ------------ |
 | pokemonName | String |
 | type | Elements |
-|  lifePoints | int |
+| lifePoints | int |
 | powers | List\<Power> |
 
 ## Elements
@@ -61,7 +62,7 @@ Les différents éléments sont:
 # US 1 - Création d'un pokémon
 
 En tant qu'utilisateur, je souhaite ajouter un pokémon dans la base du Pokédex. J'envoie une requête Json de type `POST` contenant les informations nécessaires à la création.
-- Le nom
+- Le nom (servant d'identifiant)
 - Le type
 - Le nombre de points de vie
 - La liste des capacités
@@ -91,11 +92,11 @@ Le endpoint à utiliser est `/api/create`
 
 # US 2 - Recherche de pokémons par nom
 
-En tant qu'utilisateur, je souhaite récupérer une liste de pokémons correspondants à certains critères. J'envoie une requète de type `GET` sur le endpoint `/api/searchByName?name=nameToSearch` ayant pour paramètre `name` contenant la chaine de caractère à rechercher.
+En tant qu'utilisateur, je souhaite récupérer une liste de pokémons correspondants à certains critères. J'envoie une requète de type `GET` sur le endpoint `/api/searchByName?name=nameToSearch` ayant pour paramètre `name` contenant la chaine de caractères à rechercher.
 
-Le serveur doit envoyer la liste des pokémons pour lesquelles la chaine de caractères fournie par l'utilisateur **est contenue** dans le nom du pokémon.
+Le serveur doit envoyer la liste des pokémons pour lesquelles la chaine de caractères fournie par l'utilisateur **est contenue** dans le nom du pokémon. La recherche est sensible à la casse.
 
-Si aucun pokémon ne correspond à cette chaine, une liste vide est renvoyée.
+Si aucun pokémon ne correspond à cette chaine, une liste vide est renvoyée avec le code 200.
 
 Si le paramètre est invalide (par exemple de mauvais type), le serveur répond avec le code d'erreur 400.
 
@@ -128,8 +129,45 @@ Exemple de requête : `/api/searchByName?name=Pika`
 }
 ```
 
+# US 3 - Recherche de pokémons par type
 
-# US 3 - Modification d'un pokémon
+En tant qu'utilisateur, je souhaite récupérer une liste de pokémons appartenant au même type. J'envoie une requète de type `GET` ayant pour paramètre le `type` contenant le type à rechercher.
+
+Le serveur doit envoyer la liste des pokémons qui sont du type recherché.
+
+Si aucun pokémon ne correspond à ce type, une liste vide est renvoyée avec le code 200.
+
+Si le type recherché n'est pas dans la liste de type possible, le serveur renvoie une requête vide avec le code d'erreur 400.
+
+Exemple de requête : `/api/searchByType?type=ELECTRIC`
+
+## Spécifications d'interfaces
+
+### Réponse
+```json
+{
+    "result": [
+        {
+            "name": "Pikachu",
+            "lifePoints": 80,
+            "powers": [
+                {
+                    "name": "gnaw",
+                    "damageType": "NEUTRAL",
+                    "damage": 30
+                },
+                {
+                    "name": "thunder jolt",
+                    "damageType": "ELECTRIC",
+                    "damage": 50
+                }
+            ]
+        }
+    ]
+}
+```
+
+# US 4 - Modification d'un pokémon
 
 En tant qu'utilisateur, je souhaite modifier un pokémon dans la base du Pokédex. J'envoie une requête Json de type `POST` contenant le nom du pokémon et les informations à modifier. Tous les attributs d'un pokémon peuvent être modifiés sauf le nom.
 
@@ -161,45 +199,6 @@ Le endpoint à utiliser est `/api/modify`
             "powerName": "thunder jolt",
             "damageType": "ELECTRIC",
             "damage": 50
-        }
-    ]
-}
-```
-
-
-# US 4 - Recherche de pokémons par type
-
-En tant qu'utilisateur, je souhaite récupérer une liste de pokémons appartenant au même type. J'envoie une requète de type `GET` ayant pour paramètre le `type` contenant le type à rechercher.
-
-Le serveur doit envoyer la liste des pokémons qui sont du type recherché.
-
-Si aucun pokémon ne correspond à cette chaine, une liste vide est renvoyée.
-
-Si le type recherché n'ai pas dans la liste de type possible, le serveur renvoie une requête vide avec le code d'erreur 400.
-
-Exemple de requête : `/api/searchByType?type=ELECTRIC`
-
-## Spécifications d'interfaces
-
-### Réponse
-```json
-{
-    "result": [
-        {
-            "name": "Pikachu",
-            "lifePoints": 80,
-            "powers": [
-                {
-                    "name": "gnaw",
-                    "damageType": "NEUTRAL",
-                    "damage": 30
-                },
-                {
-                    "name": "thunder jolt",
-                    "damageType": "ELECTRIC",
-                    "damage": 50
-                }
-            ]
         }
     ]
 }

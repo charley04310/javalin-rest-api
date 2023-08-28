@@ -21,7 +21,7 @@ def test_create_bulbizarre(url):
 @pytest.mark.parametrize("url", ["http://localhost:8080/api/create"])
 def test_post_with_payload_already_in_set(url):
     response = tools.post_with_payload(url, "dataset/create_bulbizarre.json")
-    assert response.status_code == 400, f"Expected status code 200, but got {response.status_code}"
+    assert response.status_code == 400, f"Expected status code 400, but got {response.status_code}"
 
 @pytest.mark.parametrize("url", ["http://localhost:8080/api/create"])
 def test_post_with_payload_invalid_json(url):
